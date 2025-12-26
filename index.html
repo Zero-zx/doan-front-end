@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V-Gen: Vietnamese Text-to-Image Generation Framework</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="min-h-screen bg-white text-gray-900 font-sans pb-20">
+    
+    <!-- HEADER SECTION -->
+    <div class="max-w-4xl mx-auto pt-16 pb-12 px-6 text-center space-y-6">
+        <h1 class="text-4xl md:text-5xl font-serif font-bold leading-tight text-gray-900">
+            V-Gen: Vietnamese Text-to-Image Generation Framework <br/>
+            Using Multi-Level Knowledge Distillation Mechanism
+        </h1>
+        
+        <div class="text-lg md:text-xl text-gray-700 font-serif">
+            <span class="text-blue-600 hover:underline cursor-pointer">Nguyễn Văn A</span><sup>1*</sup>, &nbsp;
+            <span class="text-blue-600 hover:underline cursor-pointer">Trần Thị B</span><sup>1</sup>, &nbsp;
+            <span class="text-blue-600 hover:underline cursor-pointer">Lê Văn C</span><sup>2</sup>
+        </div>
+        
+        <div class="text-sm md:text-base text-gray-600 italic font-serif">
+            <sup>1</sup>Hanoi University of Science and Technology &nbsp;&nbsp; <sup>2</sup>National AI Research Institute
+            <br/>
+            <span class="text-gray-400 not-italic text-xs uppercase tracking-wider mt-2 block font-sans">Published at VIETAI Summit 2025</span>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-4 pt-4">
+            <button class="bg-gray-800 text-white px-5 py-2 rounded-full font-sans font-medium text-sm flex items-center gap-2 hover:opacity-90 transition-opacity shadow-sm">
+                📄 Paper
+            </button>
+            <button class="bg-gray-100 text-gray-800 border border-gray-300 px-5 py-2 rounded-full font-sans font-medium text-sm flex items-center gap-2 hover:opacity-90 transition-opacity shadow-sm">
+                💻 Code
+            </button>
+            <button class="bg-gray-100 text-gray-800 border border-gray-300 px-5 py-2 rounded-full font-sans font-medium text-sm flex items-center gap-2 hover:opacity-90 transition-opacity shadow-sm">
+                ⬇️ Dataset
+            </button>
+        </div>
+    </div>
+
+    <!-- CAROUSEL SECTION -->
+    <div class="max-w-5xl mx-auto px-6 mb-20">
+        <div class="relative bg-gray-50 rounded-2xl border border-gray-200 p-8 shadow-sm">
+            
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold font-serif text-gray-900">Experimental Results</h2>
+                <div class="flex gap-2">
+                    <button onclick="prevSlide()" class="p-2 rounded-full bg-white border border-gray-300 hover:bg-gray-100 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <button onclick="nextSlide()" class="p-2 rounded-full bg-white border border-gray-300 hover:bg-gray-100 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <!-- Image Area -->
+                <div class="flex-1 w-full grid grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <div class="relative aspect-square rounded-lg overflow-hidden shadow-md">
+                            <img id="carousel-fast-img" src="https://picsum.photos/seed/cat_fast/800/800" class="w-full h-full object-cover" alt="Fast" />
+                            <div class="absolute top-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded backdrop-blur-sm">Fast Model</div>
+                            <div id="carousel-fast-time" class="absolute bottom-2 right-2 bg-green-500/90 text-white text-xs px-2 py-1 rounded font-mono">1.2s</div>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="relative aspect-square rounded-lg overflow-hidden shadow-md">
+                            <img id="carousel-slow-img" src="https://picsum.photos/seed/cat_slow/800/800" class="w-full h-full object-cover" alt="Slow" />
+                            <div class="absolute top-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded backdrop-blur-sm">High-Quality</div>
+                            <div id="carousel-slow-time" class="absolute bottom-2 right-2 bg-purple-500/90 text-white text-xs px-2 py-1 rounded font-mono">5.8s</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prompt Area -->
+                <div class="flex-1 w-full space-y-4">
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm h-full flex flex-col justify-center">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block">Input Prompt</span>
+                        <p id="carousel-prompt" class="text-lg md:text-xl text-gray-800 font-serif italic leading-relaxed">
+                            "A cyberpunk robot cat sitting on top of a skyscraper in neon rain, high detail, 8k."
+                        </p>
+                        <div class="mt-6 flex gap-2">
+                            <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">Vietnamese Input</span>
+                            <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">Resolution: 1024x1024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center gap-2 mt-6">
+                <button onclick="goToSlide(0)" class="w-6 h-2 rounded-full bg-gray-800 transition-all"></button>
+                <button onclick="goToSlide(1)" class="w-2 h-2 rounded-full bg-gray-300 transition-all"></button>
+                <button onclick="goToSlide(2)" class="w-2 h-2 rounded-full bg-gray-300 transition-all"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIVE DEMO SECTION - SEPARATE 2 MODELS -->
+    <div class="max-w-5xl mx-auto px-6 mb-20 space-y-12">
+        <h2 class="text-3xl font-bold font-serif text-gray-900 border-b border-gray-200 pb-4">Live Demo</h2>
+        
+        <!-- FAST MODEL SECTION -->
+        <div class="bg-blue-50/30 border-2 border-blue-200 rounded-2xl p-8 space-y-6">
+            <div class="flex items-center gap-2 mb-4">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                <h3 class="text-2xl font-bold text-gray-900">Fast Model</h3>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Input Panel cho Fast Model -->
+                <div class="space-y-6 bg-white p-6 rounded-xl border border-gray-200">
+                    <!-- Origin Image Input -->
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 uppercase tracking-wide mb-2">
+                            Origin Image (Optional)
+                        </label>
+                        <div class="relative group">
+                            <div id="fast-image-preview" class="hidden relative aspect-video rounded-lg overflow-hidden border border-gray-300">
+                                <img id="fast-image-display" src="" alt="Input" class="w-full h-full object-cover" />
+                                <button onclick="removeFastImage()" class="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white p-1 rounded-full shadow-lg transition-colors">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <label id="fast-upload-label" class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-white hover:bg-blue-50 hover:border-blue-300 transition-all">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <svg class="w-8 h-8 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                    </svg>
+                                    <p class="text-sm text-gray-500">Click to upload reference image</p>
+                                </div>
+                                <input type="file" id="fast-image-input" class="hidden" accept="image/*" onchange="handleFastImageUpload(event)" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Prompt Input -->
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 uppercase tracking-wide mb-2">
+                            Prompt (Vietnamese)
+                        </label>
+                        <textarea 
+                            id="fast-prompt-input"
+                            placeholder="Enter image description..."
+                            class="w-full p-4 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none h-32 resize-none shadow-sm"
+                        ></textarea>
+                    </div>
+
+                    <button 
+                        onclick="generateFast()"
+                        id="fast-generate-btn"
+                        class="w-full py-3 px-6 rounded-lg text-white font-bold shadow-lg flex items-center justify-center gap-2 transition-all transform active:scale-95 bg-gray-900 hover:bg-gray-800"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Run Generation
+                    </button>
+
+                    <div class="text-xs text-gray-500 mt-2 text-center">
+                        * Note: First generation might take longer (Warm-up)
+                    </div>
+                </div>
+
+                <!-- Output Panel cho Fast Model -->
+                <div class="flex flex-col">
+                    <div class="bg-white p-1 rounded-t-xl border-t border-x border-gray-200 text-center py-3 bg-gradient-to-r from-blue-50 to-white">
+                        <div class="flex items-center justify-center gap-2 font-bold text-gray-800">
+                            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            Fast Model Result
+                        </div>
+                    </div>
+                    <div class="flex-1 bg-gray-100 rounded-b-xl border border-gray-200 relative overflow-hidden flex items-center justify-center min-h-[300px]">
+                        <div id="fast-result-container">
+                            <!-- Results will be displayed here -->
+                        </div>
+                        <div id="fast-time-badge" class="hidden absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-mono font-bold text-green-600 shadow-sm border border-gray-100">
+                            0.00s
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUALITY MODEL SECTION -->
+        <div class="bg-purple-50/30 border-2 border-purple-200 rounded-2xl p-8 space-y-6">
+            <div class="flex items-center gap-2 mb-4">
+                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <h3 class="text-2xl font-bold text-gray-900">Quality Model</h3>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Input Panel cho Quality Model -->
+                <div class="space-y-6 bg-white p-6 rounded-xl border border-gray-200">
+                    <!-- Origin Image Input -->
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 uppercase tracking-wide mb-2">
+                            Origin Image (Optional)
+                        </label>
+                        <div class="relative group">
+                            <div id="quality-image-preview" class="hidden relative aspect-video rounded-lg overflow-hidden border border-gray-300">
+                                <img id="quality-image-display" src="" alt="Input" class="w-full h-full object-cover" />
+                                <button onclick="removeQualityImage()" class="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white p-1 rounded-full shadow-lg transition-colors">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <label id="quality-upload-label" class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-white hover:bg-purple-50 hover:border-purple-300 transition-all">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <svg class="w-8 h-8 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                    </svg>
+                                    <p class="text-sm text-gray-500">Click to upload reference image</p>
+                                </div>
+                                <input type="file" id="quality-image-input" class="hidden" accept="image/*" onchange="handleQualityImageUpload(event)" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Prompt Input -->
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 uppercase tracking-wide mb-2">
+                            Prompt (Vietnamese)
+                        </label>
+                        <textarea 
+                            id="quality-prompt-input"
+                            placeholder="Enter image description..."
+                            class="w-full p-4 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none h-32 resize-none shadow-sm"
+                        ></textarea>
+                    </div>
+
+                    <button 
+                        onclick="generateQuality()"
+                        id="quality-generate-btn"
+                        class="w-full py-3 px-6 rounded-lg text-white font-bold shadow-lg flex items-center justify-center gap-2 transition-all transform active:scale-95 bg-gray-900 hover:bg-gray-800"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Run Generation
+                    </button>
+
+                    <div class="text-xs text-gray-500 mt-2 text-center">
+                        * Note: First generation might take longer (Warm-up)
+                    </div>
+                </div>
+
+                <!-- Output Panel cho Quality Model -->
+                <div class="flex flex-col">
+                    <div class="bg-white p-1 rounded-t-xl border-t border-x border-gray-200 text-center py-3 bg-gradient-to-r from-purple-50 to-white">
+                        <div class="flex items-center justify-center gap-2 font-bold text-gray-800">
+                            <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Quality Model Result
+                        </div>
+                    </div>
+                    <div class="flex-1 bg-gray-100 rounded-b-xl border border-gray-200 relative overflow-hidden flex items-center justify-center min-h-[300px]">
+                        <div id="quality-result-container">
+                            <!-- Results will be displayed here -->
+                        </div>
+                        <div id="quality-time-badge" class="hidden absolute bottom-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-mono font-bold text-purple-600 shadow-sm border border-gray-100">
+                            0.00s
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABSTRACT SECTION -->
+    <div class="max-w-4xl mx-auto px-6 mb-20">
+        <div class="bg-white p-8 rounded-xl border border-gray-200 shadow-lg relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-2 h-full bg-blue-600"></div>
+            <h2 class="text-2xl font-bold font-serif text-gray-900 mb-6">Abstract</h2>
+            <p class="text-gray-700 text-lg leading-relaxed text-justify font-serif">
+                This research proposes <strong>V-Gen</strong>, an optimized pipeline for Vietnamese text-to-image generation.
+                In the context where modern image generation models primarily support English, semantic conversion from Vietnamese often faces latency and information loss issues.
+                We introduce the <em>Token-Level Alignment</em> technique that directly maps Vietnamese semantic space into the Latent Space of diffusion models.
+                Experimental results show that this method reduces inference time by 40% compared to traditional machine translation approaches, while maintaining image fidelity (FID Score improved by 12%).
+            </p>
+        </div>
+    </div>
+
+    <!-- EVALUATION TABLE -->
+    <div class="max-w-4xl mx-auto px-6 mb-20">
+        <h2 class="text-2xl font-bold font-serif text-gray-900 mb-6">Evaluation Table</h2>
+        <div class="overflow-hidden shadow-sm rounded-lg border border-gray-200">
+            <table class="w-full text-sm text-left text-gray-700 font-serif">
+                <thead class="text-xs text-gray-900 uppercase bg-gray-50 border-b-2 border-gray-200">
+                    <tr>
+                        <th class="px-6 py-4 font-bold">Method</th>
+                        <th class="px-6 py-4 text-center">FID Score (↓)</th>
+                        <th class="px-6 py-4 text-center">CLIP Score (↑)</th>
+                        <th class="px-6 py-4 text-center">Inference Time (s)</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 font-medium text-gray-900">Stable Diffusion 1.5 (Baseline)</td>
+                        <td class="px-6 py-4 text-center">14.20</td>
+                        <td class="px-6 py-4 text-center">28.5</td>
+                        <td class="px-6 py-4 text-center">5.8s</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 font-medium text-gray-900">DALL-E 2 API</td>
+                        <td class="px-6 py-4 text-center">10.50</td>
+                        <td class="px-6 py-4 text-center">30.1</td>
+                        <td class="px-6 py-4 text-center">~8.0s</td>
+                    </tr>
+                    <tr class="bg-blue-50/50 border-l-4 border-blue-500">
+                        <td class="px-6 py-4 font-bold text-gray-900">V-Gen (Ours - Fast)</td>
+                        <td class="px-6 py-4 text-center">18.50</td>
+                        <td class="px-6 py-4 text-center">27.1</td>
+                        <td class="px-6 py-4 text-center font-bold text-green-600">1.2s</td>
+                    </tr>
+                    <tr class="bg-purple-50/50 border-l-4 border-purple-500">
+                        <td class="px-6 py-4 font-bold text-gray-900">V-Gen (Ours - Quality)</td>
+                        <td class="px-6 py-4 text-center font-bold text-purple-600">9.80</td>
+                        <td class="px-6 py-4 text-center font-bold text-purple-600">31.2</td>
+                        <td class="px-6 py-4 text-center">6.5s</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ARCHITECTURE SECTION -->
+    <div class="max-w-4xl mx-auto px-6 pb-24">
+        <h2 class="text-2xl font-bold font-serif text-gray-900 mb-6">System Architecture (Methodology)</h2>
+        <div class="w-full bg-white border border-gray-300 p-10 rounded-xl flex flex-col items-center justify-center gap-8 min-h-[300px]">
+            <div class="flex flex-col md:flex-row items-center gap-4 w-full justify-center max-w-3xl">
+                
+                <!-- Input Block -->
+                <div class="flex flex-col gap-2 items-center">
+                    <div class="w-24 h-24 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-gray-50 text-gray-400 text-xs text-center p-2">
+                        Vietnamese<br/>Text / Image
+                    </div>
+                </div>
+
+                <!-- Arrow -->
+                <div class="h-8 w-0.5 md:w-8 md:h-0.5 bg-gray-400 relative">
+                    <div class="absolute right-0 -top-1.5 md:-top-1 w-0 h-0 border-l-8 border-l-gray-400 border-y-4 border-y-transparent md:block hidden"></div>
+                    <div class="absolute bottom-0 -left-1.5 md:hidden w-0 h-0 border-t-8 border-t-gray-400 border-x-4 border-x-transparent"></div>
+                </div>
+
+                <!-- Core Module -->
+                <div class="border-2 border-blue-500 bg-blue-50 rounded-xl p-4 text-center shadow-lg relative">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-2 text-xs font-bold text-blue-600">V-Gen Core</div>
+                    <div class="text-sm font-bold text-gray-800 mb-2">Cross-Modal Alignment</div>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="bg-white p-2 rounded border border-blue-200">Text Encoder</div>
+                        <div class="bg-white p-2 rounded border border-blue-200">Image Encoder</div>
+                    </div>
+                </div>
+
+                <!-- Arrow -->
+                <div class="h-8 w-0.5 md:w-8 md:h-0.5 bg-gray-400 relative">
+                    <div class="absolute right-0 -top-1.5 md:-top-1 w-0 h-0 border-l-8 border-l-gray-400 border-y-4 border-y-transparent md:block hidden"></div>
+                </div>
+
+                <!-- Output Blocks -->
+                <div class="flex flex-col gap-3">
+                    <div class="border border-green-400 bg-green-50 p-3 rounded-lg text-center shadow-sm w-32">
+                        <div class="text-xs font-bold text-green-700">Fast Branch</div>
+                        <div class="text-[10px] text-gray-500">LCM Distillation</div>
+                    </div>
+                    <div class="border border-purple-400 bg-purple-50 p-3 rounded-lg text-center shadow-sm w-32">
+                        <div class="text-xs font-bold text-purple-700">Quality Branch</div>
+                        <div class="text-[10px] text-gray-500">SDXL Refiner</div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="text-sm text-gray-600 max-w-2xl text-center leading-relaxed">
+                <strong>Figure 1:</strong> V-Gen architecture overview. Input data (Text/Image) is encoded and aligned through the <em>Cross-Modal Alignment</em> module before being fed into two separate image generation branches: the speed branch (Fast) using LCM and the quality branch (Quality) using SDXL.
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gray-200 py-8 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-6 text-center text-gray-500 text-sm font-serif">
+            <p class="mb-2">&copy; 2025 AI Research Lab. All rights reserved.</p>
+            <div class="flex justify-center gap-4 text-xs font-sans">
+                <a href="#" class="hover:text-blue-600">Privacy Policy</a>
+                <a href="#" class="hover:text-blue-600">Terms of Use</a>
+                <a href="#" class="hover:text-blue-600">Contact Authors</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load JavaScript files in order -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/carousel.js"></script>
+    <script src="js/fastModel.js"></script>
+    <script src="js/qualityModel.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

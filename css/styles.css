@@ -1,0 +1,28 @@
+/* ============================================
+   CUSTOM STYLES CHO V-GEN APP
+   ============================================ */
+
+/* Animation cho loading spinner */
+@keyframes spin {
+    from { 
+        transform: rotate(0deg); 
+    }
+    to { 
+        transform: rotate(360deg); 
+    }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Selection color */
+::selection {
+    background-color: #dbeafe; /* blue-100 */
+}
+
+/* Smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
