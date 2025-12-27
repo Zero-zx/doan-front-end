@@ -1,0 +1,70 @@
+{
+  "001": {
+    "id": "01.jpg",  (33s)
+    "prompt": "Test 1: Make the human wear a Nhat Binh outfit"
+  },
+  "002": {
+    "id": "02.jpg",   (30,4s)
+    "prompt": "Test 2: Make the human wear a yellow Nhat Binh outfit"
+  },
+  "003": {
+    "id": "03.jpg",   (32.6s)
+    "prompt": "Test 3: Make the human wear a soft white silk Nhat Binh outer robe with subtle tone-on-tone floral and geometric embroidery, wide lantern sleeves with pastel blue, pink, and yellow striped cuffs, white silk pants (partially visible), a tall white mandarin collar under-tunic (partially visible) with subtle patterns. The V-neck outer collar features intricate embroidery with an outer border of cobalt blue, an inner border of white, and detailed geometric and stylized floral motifs in blue and white, centered with a round gold embellishment. A soft pastel blue silk turban is worn on the head"
+  },
+  "004": {
+    "id": "04.jpg",   (29,2s)
+    "prompt": "Test 4: Make the human wear a green Nhat Binh outfit, loose her hair"
+  },
+  "005": {
+    "id": "06.jpg", (32,7s)
+    "prompt": "Test 5: Make the human wear a green Nhat Binh outfit, left hand wave the camera"
+  },
+  "006": {
+    "id": "08.jpg",  (32,6s)
+    "prompt": "Test 6: Make the human wear a blue Nhat Binh outfit"
+  },
+  "007": {
+    "id": "07.jpg",   (29,4s)
+    "prompt": "Test 7: Make the human wear a red Nhat Binh outfit that is blowing intensely in the wind to the right."
+  },
+  "008": {
+    "id": "05.jpg",  (30,8s)
+    "prompt": "Test 8: Make the human wear a purple Nhat Binh outfit top paired with modern blue denim jeans."
+  },
+  "009": {
+    "id": "08.jpg",  (33,4s)
+    "prompt": "Test 9: Make the human wear a pink Nhat Binh outfit with their hair loose and flowing, removing any glasses."
+  },
+  "010": {
+    "id": "09.jpg",  (33,8s)
+    "prompt": "Test 10: Make the human wear a Nhat Binh outfit featuring a complex gradient."
+  },
+  "011": {
+    "id": "02.jpg",  (30,8s)
+    "prompt": "Test 11: Make the human wear a purple Nhat Binh outfit, seen from a side-profile view to show the drape of the long sleeves."
+  },
+  "012": {
+    "id": "06.jpg",  (35,9s)
+    "prompt": "Test 12: Make the human wear a red Nhat Binh outfit, seen from behind."
+  },
+  "013": {
+    "id": "04.jpg",  (28,7s)
+    "prompt": "Test 13: Make the human wear a Nhat Binh outfit, styled as a oil painting style with visible brushstrokes and a rich, dark canvas texture."
+  },
+  "014": {
+    "id": "08.jpg", (32,1s)
+    "prompt": "Test 14: Make the human wear a Nhat Binh outfit, rendered in a modern 3D Disney style with soft, rounded features and subsurface scattering on the skin."
+  },
+  "015": {
+    "id": "07.jpg",  (26,9s)
+    "prompt": "Test 15: Make the human wear a Nhat Binh outfit while standing in a snowy winter forest with pine trees."
+  },
+  "016": {
+    "id": "02.jpg",  (27,1s)
+    "prompt": "Test 16: Make the human wear a red Nhat Binh outfit while standing in a modern, futuristic neon-lit city street at night."
+  },
+  "017": {
+    "id": "10.jpg",  (27,7s)
+    "prompt": "Extract the Nhat Binh outfit worn by the human in the image."
+  }
+}

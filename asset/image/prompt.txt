@@ -1,0 +1,92 @@
+image_batch = [
+        # 1. ID: 000000000001
+        {
+            "path": "./assets/imgs_demo/01.jpg",
+            "src_p": "a round cake with orange frosting on a wooden plate",
+            "edit_p": "a square cake with strawberry frosting on a plastic plate"
+        },
+        # 2. ID: 000000000004
+        {
+            "path": "./assets/imgs_demo/04.jpg",
+            "src_p": "a cat sitting next to a mirror",
+            "edit_p": "a silver cat sculpture standing next to a mirror"
+        },
+        # 3. ID: 000000000002
+        {
+            "path": "./assets/imgs_demo/02.jpg",
+            "src_p": "a cat sitting on a wooden chair",
+            "edit_p": "a red dog with flowers in mouth standing on a metal chair"
+        },
+        # 4. ID: 000000000000
+        {
+            "path": "./assets/imgs_demo/00.jpg",
+            "src_p": "a slanted mountain bicycle on the road in front of a building",
+            "edit_p": "a slanted rusty mountain motorcycle in front of a fence"
+        },
+        # 5. ID: 000000000003
+        {
+            "path": "./assets/imgs_demo/03.jpg",
+            "src_p": "blue light, a black and white cat is playing with a flower",
+            "edit_p": "blue light, a black and white dog is playing with a yellow ball"
+        },
+        # 6. ID: 000000000006
+        {
+            "path": "./assets/imgs_demo/06.jpg",
+            "src_p": "a cup of coffee with drawing of tulip putted on the wooden table",
+            "edit_p": "a yellow cup of milk with drawing of rose putted on the wooden table"
+        },
+        # 7. ID: 000000000007
+        {
+            "path": "./assets/imgs_demo/07.jpg",
+            "src_p": "a german shepherd dog stands on the grass with mouth closed",
+            "edit_p": "a white german shepherd dog sits on the grass with big mouth opened"
+        },
+        # 8. ID: 000000000009
+        {
+            "path": "./assets/imgs_demo/09.jpg",
+            "src_p": "a dog is laying down on a white background",
+            "edit_p": "Painting of a lion laying down on a blue background"
+        },
+        # 9. ID: 000000000028
+        {
+            "path": "./assets/imgs_demo/28.jpg",
+            "src_p": "white flowers on a tree branch with blue sky background",
+            "edit_p": "Painting of red flowers on a tree branch with white background"
+        },
+        # 10. ID: 000000000026
+        {
+            "path": "./assets/imgs_demo/26.jpg",
+            "src_p": "a yellow bird with a red beak sitting on a branch",
+            "edit_p": "a toy cat with a red fur sitting on a branch"
+        },
+        # 11. ID: 000000000027
+        {
+            "path": "./assets/imgs_demo/27.jpg",
+            "src_p": "a opened eyes cat sitting on wooden floor",
+            "edit_p": "a closed eyes dog sitting on green grass"
+        },
+        # 12. ID: 000000000093
+        {
+            "path": "./assets/imgs_demo/93.jpg",
+            "src_p": "a collie dog is sitting on a bed",
+            "edit_p": "a Garfield cat is sleeping on a sofa"
+        },
+        # 13. ID: 000000000094
+        {
+            "path": "./assets/imgs_demo/94.jpg",
+            "src_p": "a cat is sitting on a red blanket",
+            "edit_p": "a cat is sleeping on a blue sweater"
+        },
+        # 14. ID: 000000000095
+        {
+            "path": "./assets/imgs_demo/95.jpg",
+            "src_p": "a painting of a fairy with green wings holding a glowing jar",
+            "edit_p": "a painting of a fairy with purple wings holding a white crystal ball"
+        },
+        # 15. ID: 000000000098
+        {
+            "path": "./assets/imgs_demo/98.jpg",
+            "src_p": "a light bulb hanging from a wire with sky in the background",
+            "edit_p": "a cat hanging from a wire with grass in the background"
+        }
+    ]

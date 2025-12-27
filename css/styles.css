@@ -26,3 +26,40 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Font families - hỗ trợ tiếng Việt */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+.font-serif {
+    font-family: 'Noto Serif', 'Segoe UI', 'Arial Unicode MS', 'Times New Roman', serif;
+    font-feature-settings: "liga" 1, "kern" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Đảm bảo font hiển thị đúng cho tên tác giả tiếng Việt */
+.text-lg.font-serif,
+.text-xl.font-serif {
+    font-family: 'Noto Serif', 'Segoe UI', 'Arial Unicode MS', 'Times New Roman', serif !important;
+    font-variant-ligatures: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Image display - show full image without cropping in demo fields */
+#fast-result-container img,
+#quality-result-container img {
+    object-fit: contain;
+    object-position: center;
+}
+
+/* Origin image display - show full image without cropping */
+#fast-image-display,
+#quality-image-display {
+    object-fit: contain;
+    object-position: center;
+}
+
+

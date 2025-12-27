@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V-Gen: Vietnamese Text-to-Image Generation Framework</title>
+    <title>Ten Do An</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -12,20 +15,17 @@
     <!-- HEADER SECTION -->
     <div class="max-w-4xl mx-auto pt-16 pb-12 px-6 text-center space-y-6">
         <h1 class="text-4xl md:text-5xl font-serif font-bold leading-tight text-gray-900">
-            V-Gen: Vietnamese Text-to-Image Generation Framework <br/>
-            Using Multi-Level Knowledge Distillation Mechanism
+            Ten Do An
         </h1>
         
         <div class="text-lg md:text-xl text-gray-700 font-serif">
-            <span class="text-blue-600 hover:underline cursor-pointer">Nguyễn Văn A</span><sup>1*</sup>, &nbsp;
-            <span class="text-blue-600 hover:underline cursor-pointer">Trần Thị B</span><sup>1</sup>, &nbsp;
-            <span class="text-blue-600 hover:underline cursor-pointer">Lê Văn C</span><sup>2</sup>
+            <span class="text-blue-600 hover:underline cursor-pointer">Trần Khánh Linh</span><sup>1*</sup>, &nbsp;
+            <span class="text-blue-600 hover:underline cursor-pointer">Lê Như Quỳnh</span><sup>1</sup>, &nbsp;
+            <span class="text-blue-600 hover:underline cursor-pointer">Đặng Trung Hiếu</span><sup>2</sup>
         </div>
         
         <div class="text-sm md:text-base text-gray-600 italic font-serif">
-            <sup>1</sup>Hanoi University of Science and Technology &nbsp;&nbsp; <sup>2</sup>National AI Research Institute
-            <br/>
-            <span class="text-gray-400 not-italic text-xs uppercase tracking-wider mt-2 block font-sans">Published at VIETAI Summit 2025</span>
+            <sup>1</sup>Posts and Telecommunications Institute of Technology &nbsp;&nbsp;
         </div>
 
         <div class="flex flex-wrap justify-center gap-4 pt-4">
@@ -61,45 +61,61 @@
                 </div>
             </div>
 
-            <div class="flex flex-col md:flex-row gap-8 items-center">
-                <!-- Image Area -->
-                <div class="flex-1 w-full grid grid-cols-2 gap-4">
-                    <div class="space-y-2">
+            <div class="flex flex-col gap-8 items-center">
+                <!-- Image Area: Input Image -> Edited Image -->
+                <div class="w-full flex items-center justify-center gap-6">
+                    <!-- Input Image -->
+                    <div class="flex-1 max-w-md">
                         <div class="relative aspect-square rounded-lg overflow-hidden shadow-md">
-                            <img id="carousel-fast-img" src="https://picsum.photos/seed/cat_fast/800/800" class="w-full h-full object-cover" alt="Fast" />
-                            <div class="absolute top-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded backdrop-blur-sm">Fast Model</div>
-                            <div id="carousel-fast-time" class="absolute bottom-2 right-2 bg-green-500/90 text-white text-xs px-2 py-1 rounded font-mono">1.2s</div>
+                            <img id="carousel-origin-img" src="asset/image/image.jpg" class="w-full h-full object-cover" alt="Input Image" />
+                            <div class="absolute top-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded backdrop-blur-sm">Input Image</div>
                         </div>
                     </div>
-                    <div class="space-y-2">
+                    
+                    <!-- Arrow -->
+                    <div class="flex-shrink-0">
+                        <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                    
+                    <!-- Edited Image -->
+                    <div class="flex-1 max-w-md">
                         <div class="relative aspect-square rounded-lg overflow-hidden shadow-md">
-                            <img id="carousel-slow-img" src="https://picsum.photos/seed/cat_slow/800/800" class="w-full h-full object-cover" alt="Slow" />
-                            <div class="absolute top-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded backdrop-blur-sm">High-Quality</div>
-                            <div id="carousel-slow-time" class="absolute bottom-2 right-2 bg-purple-500/90 text-white text-xs px-2 py-1 rounded font-mono">5.8s</div>
+                            <img id="carousel-edited-img" src="asset/compare_result/edit0.png" class="w-full h-full object-cover" alt="Edited Image" />
+                            <div class="absolute top-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded backdrop-blur-sm">Edited Image</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Prompt Area -->
-                <div class="flex-1 w-full space-y-4">
-                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm h-full flex flex-col justify-center">
-                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block">Input Prompt</span>
-                        <p id="carousel-prompt" class="text-lg md:text-xl text-gray-800 font-serif italic leading-relaxed">
-                            "A cyberpunk robot cat sitting on top of a skyscraper in neon rain, high detail, 8k."
+                <!-- Prompt Area - Below Images -->
+                <div class="w-full">
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block">Edit Prompt</span>
+                        <p id="carousel-prompt" class="text-lg md:text-xl text-gray-800 font-serif italic leading-relaxed text-center">
+                            "a slanted rusty mountain motorcycle in front of a fence"
                         </p>
-                        <div class="mt-6 flex gap-2">
-                            <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">Vietnamese Input</span>
-                            <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">Resolution: 1024x1024</span>
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="flex justify-center gap-2 mt-6">
-                <button onclick="goToSlide(0)" class="w-6 h-2 rounded-full bg-gray-800 transition-all"></button>
-                <button onclick="goToSlide(1)" class="w-2 h-2 rounded-full bg-gray-300 transition-all"></button>
-                <button onclick="goToSlide(2)" class="w-2 h-2 rounded-full bg-gray-300 transition-all"></button>
+            <div class="flex justify-center gap-2 mt-6" id="carousel-dots-container">
+                <!-- Dots will be generated dynamically -->
             </div>
+        </div>
+    </div>
+
+      <!-- ABSTRACT SECTION -->
+      <div class="max-w-4xl mx-auto px-6 mb-20">
+        <div class="bg-white p-8 rounded-xl border border-gray-200 shadow-lg relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-2 h-full bg-blue-600"></div>
+            <h2 class="text-2xl font-bold font-serif text-gray-900 mb-6">Abstract</h2>
+            <p class="text-gray-700 text-lg leading-relaxed text-justify font-serif">
+                This research proposes <strong>V-Gen</strong>, an optimized pipeline for Vietnamese text-to-image generation.
+                In the context where modern image generation models primarily support English, semantic conversion from Vietnamese often faces latency and information loss issues.
+                We introduce the <em>Token-Level Alignment</em> technique that directly maps Vietnamese semantic space into the Latent Space of diffusion models.
+                Experimental results show that this method reduces inference time by 40% compared to traditional machine translation approaches, while maintaining image fidelity (FID Score improved by 12%).
+            </p>
         </div>
     </div>
 
@@ -125,8 +141,8 @@
                             Origin Image (Optional)
                         </label>
                         <div class="relative group">
-                            <div id="fast-image-preview" class="hidden relative aspect-video rounded-lg overflow-hidden border border-gray-300">
-                                <img id="fast-image-display" src="" alt="Input" class="w-full h-full object-cover" />
+                            <div id="fast-image-preview" class="hidden relative aspect-video rounded-lg overflow-hidden border border-gray-300 bg-gray-50">
+                                <img id="fast-image-display" src="" alt="Input" class="w-full h-full object-contain object-center" />
                                 <button onclick="removeFastImage()" class="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white p-1 rounded-full shadow-lg transition-colors">
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -214,8 +230,8 @@
                             Origin Image (Optional)
                         </label>
                         <div class="relative group">
-                            <div id="quality-image-preview" class="hidden relative aspect-video rounded-lg overflow-hidden border border-gray-300">
-                                <img id="quality-image-display" src="" alt="Input" class="w-full h-full object-cover" />
+                            <div id="quality-image-preview" class="hidden relative aspect-video rounded-lg overflow-hidden border border-gray-300 bg-gray-50">
+                                <img id="quality-image-display" src="" alt="Input" class="w-full h-full object-contain object-center" />
                                 <button onclick="removeQualityImage()" class="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white p-1 rounded-full shadow-lg transition-colors">
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -284,59 +300,802 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- ABSTRACT SECTION -->
-    <div class="max-w-4xl mx-auto px-6 mb-20">
-        <div class="bg-white p-8 rounded-xl border border-gray-200 shadow-lg relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-2 h-full bg-blue-600"></div>
-            <h2 class="text-2xl font-bold font-serif text-gray-900 mb-6">Abstract</h2>
-            <p class="text-gray-700 text-lg leading-relaxed text-justify font-serif">
-                This research proposes <strong>V-Gen</strong>, an optimized pipeline for Vietnamese text-to-image generation.
-                In the context where modern image generation models primarily support English, semantic conversion from Vietnamese often faces latency and information loss issues.
-                We introduce the <em>Token-Level Alignment</em> technique that directly maps Vietnamese semantic space into the Latent Space of diffusion models.
-                Experimental results show that this method reduces inference time by 40% compared to traditional machine translation approaches, while maintaining image fidelity (FID Score improved by 12%).
-            </p>
+        <!-- EXAMPLES TABLE -->
+        <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 shadow-sm">
+            <h3 class="text-2xl font-bold font-serif text-gray-900 mb-6">Examples</h3>
+            <p class="text-sm text-gray-600 mb-4">Click on any row to load the image and prompt into both models above</p>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-700">
+                    <thead class="text-xs text-gray-900 uppercase bg-gray-50 border-b-2 border-gray-200">
+                        <tr>
+                            <th class="px-4 py-3 font-bold">Input Image</th>
+                            <th class="px-4 py-3 font-bold">Prompt</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 bg-white">
+                        <tr class="hover:bg-blue-50 cursor-pointer transition-colors active:bg-blue-100" onclick="loadExample(0)">
+                            <td class="px-4 py-3">
+                                <img src="asset/image/image1.jpg" alt="Example 1" class="w-24 h-24 object-cover object-center rounded-lg border border-gray-200 shadow-sm" />
+                            </td>
+                            <td class="px-4 py-3 font-medium text-gray-900">a square cake with strawberry frosting on a plastic plate</td>
+                        </tr>
+                        <tr class="hover:bg-blue-50 cursor-pointer transition-colors active:bg-blue-100" onclick="loadExample(1)">
+                            <td class="px-4 py-3">
+                                <img src="asset/image/image4.jpg" alt="Example 2" class="w-24 h-24 object-cover object-center rounded-lg border border-gray-200 shadow-sm" />
+                            </td>
+                            <td class="px-4 py-3 font-medium text-gray-900">a silver cat sculpture standing next to a mirror</td>
+                        </tr>
+                        <tr class="hover:bg-blue-50 cursor-pointer transition-colors active:bg-blue-100" onclick="loadExample(2)">
+                            <td class="px-4 py-3">
+                                <img src="asset/image/image2.jpg" alt="Example 3" class="w-24 h-24 object-cover object-center rounded-lg border border-gray-200 shadow-sm" />
+                            </td>
+                            <td class="px-4 py-3 font-medium text-gray-900">a red dog with flowers in mouth standing on a metal chair</td>
+                        </tr>
+                        <tr class="hover:bg-blue-50 cursor-pointer transition-colors active:bg-blue-100" onclick="loadExample(3)">
+                            <td class="px-4 py-3">
+                                <img src="asset/image/image.jpg" alt="Example 4" class="w-24 h-24 object-cover object-center rounded-lg border border-gray-200 shadow-sm" />
+                            </td>
+                            <td class="px-4 py-3 font-medium text-gray-900">a slanted rusty mountain motorcycle in front of a fence</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
-    <!-- EVALUATION TABLE -->
-    <div class="max-w-4xl mx-auto px-6 mb-20">
-        <h2 class="text-2xl font-bold font-serif text-gray-900 mb-6">Evaluation Table</h2>
-        <div class="overflow-hidden shadow-sm rounded-lg border border-gray-200">
-            <table class="w-full text-sm text-left text-gray-700 font-serif">
-                <thead class="text-xs text-gray-900 uppercase bg-gray-50 border-b-2 border-gray-200">
+    <!-- EXPERIMENTAL RESULTS TABLE (from final.md) -->
+    <div class="max-w-7xl mx-auto px-6 mb-20">
+        <h2 class="text-2xl font-bold font-serif text-gray-900 mb-6">Comparison Table</h2>
+        <div class="overflow-x-auto shadow-sm rounded-lg border border-gray-200">
+            <table class="w-full text-xs text-left text-gray-700 font-serif min-w-[1400px]">
+                <thead class="text-xs text-gray-900 uppercase bg-gray-50 border-b-2 border-gray-200 sticky top-0">
                     <tr>
-                        <th class="px-6 py-4 font-bold">Method</th>
-                        <th class="px-6 py-4 text-center">FID Score (↓)</th>
-                        <th class="px-6 py-4 text-center">CLIP Score (↑)</th>
-                        <th class="px-6 py-4 text-center">Inference Time (s)</th>
+                        <th class="px-3 py-3 font-bold text-center">ID</th>
+                        <th class="px-3 py-3 font-bold min-w-[200px]">Original (prompt)</th>
+                        <th class="px-3 py-3 font-bold text-center">result_be</th>
+                        <th class="px-3 py-3 font-bold text-center">result_nano</th>
+                        <th class="px-3 py-3 font-bold text-center">result_gpt_1.5</th>
+                        <th class="px-3 py-3 font-bold text-center">result_gpt_1</th>
+                        <th class="px-3 py-3 font-bold text-center">result_qwen_edit_2509</th>
+                        <th class="px-3 py-3 font-bold text-center">result_flux</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 bg-white">
                     <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 font-medium text-gray-900">Stable Diffusion 1.5 (Baseline)</td>
-                        <td class="px-6 py-4 text-center">14.20</td>
-                        <td class="px-6 py-4 text-center">28.5</td>
-                        <td class="px-6 py-4 text-center">5.8s</td>
+                        <td class="px-3 py-3 text-center font-medium">001</td>
+                        <td class="px-3 py-3">
+                            <img src="asset/dataset/01.jpg" alt="Original 1" class="w-24 h-24 object-cover object-center rounded mb-2 border border-gray-200"/><br/>
+                            <span class="text-xs">Test 1: Make the human wear a NhatBinh outfit</span>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_be/01.png" alt="result_be 1" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">24.3 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_nano/01.jpg" alt="result_nano 1" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">33.0 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1.5/001.png" alt="result_gpt_1.5 1" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">38.7 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1/01.png" alt="result_gpt_1 1" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">32.0 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_qwen_edit_2509/01.webp" alt="result_qwen_edit_2509 1" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">58.2 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_flux/01.webp" alt="result_flux 1" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">23.0 s</small>
+                        </td>
                     </tr>
                     <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 font-medium text-gray-900">DALL-E 2 API</td>
-                        <td class="px-6 py-4 text-center">10.50</td>
-                        <td class="px-6 py-4 text-center">30.1</td>
-                        <td class="px-6 py-4 text-center">~8.0s</td>
+                        <td class="px-3 py-3 text-center font-medium">002</td>
+                        <td class="px-3 py-3">
+                            <img src="asset/dataset/02.jpg" alt="Original 2" class="w-24 h-24 object-cover object-center rounded mb-2 border border-gray-200"/><br/>
+                            <span class="text-xs">Test 2: Make the human wear a yellow NhatBinh outfit</span>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_be/02.png" alt="result_be 2" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">15.6 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_nano/02.jpg" alt="result_nano 2" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">30.4 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1.5/002.png" alt="result_gpt_1.5 2" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">36.6 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1/02.png" alt="result_gpt_1 2" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">43.2 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_qwen_edit_2509/02.webp" alt="result_qwen_edit_2509 2" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">60.7 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_flux/02.jpg" alt="result_flux 2" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">13.4 s</small>
+                        </td>
                     </tr>
-                    <tr class="bg-blue-50/50 border-l-4 border-blue-500">
-                        <td class="px-6 py-4 font-bold text-gray-900">V-Gen (Ours - Fast)</td>
-                        <td class="px-6 py-4 text-center">18.50</td>
-                        <td class="px-6 py-4 text-center">27.1</td>
-                        <td class="px-6 py-4 text-center font-bold text-green-600">1.2s</td>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-3 py-3 text-center font-medium">003</td>
+                        <td class="px-3 py-3">
+                            <img src="asset/dataset/03.jpg" alt="Original 3" class="w-24 h-24 object-cover object-center rounded mb-2 border border-gray-200"/><br/>
+                            <span class="text-xs">Test 3: Make the human wear a soft white silk Nhat Binh outer robe...</span>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_be/03.png" alt="result_be 3" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">14.9 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_nano/03.jpg" alt="result_nano 3" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">32.6 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1.5/003.png" alt="result_gpt_1.5 3" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">40.4 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1/03.png" alt="result_gpt_1 3" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">39.1 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_qwen_edit_2509/03.webp" alt="result_qwen_edit_2509 3" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">68.9 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_flux/03.jpg" alt="result_flux 3" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">11.0 s</small>
+                        </td>
                     </tr>
-                    <tr class="bg-purple-50/50 border-l-4 border-purple-500">
-                        <td class="px-6 py-4 font-bold text-gray-900">V-Gen (Ours - Quality)</td>
-                        <td class="px-6 py-4 text-center font-bold text-purple-600">9.80</td>
-                        <td class="px-6 py-4 text-center font-bold text-purple-600">31.2</td>
-                        <td class="px-6 py-4 text-center">6.5s</td>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-3 py-3 text-center font-medium">004</td>
+                        <td class="px-3 py-3">
+                            <img src="asset/dataset/04.jpg" alt="Original 4" class="w-24 h-24 object-cover object-center rounded mb-2 border border-gray-200"/><br/>
+                            <span class="text-xs">Test 4: Make the human wear a green NhatBinh outfit, loose her hair</span>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_be/04.png" alt="result_be 4" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">14.1 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_nano/04.jpg" alt="result_nano 4" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">29.2 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1.5/004.png" alt="result_gpt_1.5 4" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">28.9 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1/04.png" alt="result_gpt_1 4" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">36.4 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_qwen_edit_2509/04.webp" alt="result_qwen_edit_2509 4" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">59.8 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_flux/04.webp" alt="result_flux 4" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">25.4 s</small>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-3 py-3 text-center font-medium">005</td>
+                        <td class="px-3 py-3">
+                            <img src="asset/dataset/06.jpg" alt="Original 5" class="w-24 h-24 object-cover object-center rounded mb-2 border border-gray-200"/><br/>
+                            <span class="text-xs">Test 5: Make the human wear a green NhatBinh outfit, left hand wave the camera</span>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_be/05.png" alt="result_be 5" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">16.2 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_nano/05.jpg" alt="result_nano 5" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">32.7 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1.5/005.png" alt="result_gpt_1.5 5" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">29.8 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1/05.png" alt="result_gpt_1 5" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">42.3 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_qwen_edit_2509/05.webp" alt="result_qwen_edit_2509 5" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">77.8 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_flux/05.webp" alt="result_flux 5" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">19.4 s</small>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-3 py-3 text-center font-medium">006</td>
+                        <td class="px-3 py-3">
+                            <img src="asset/dataset/08.jpg" alt="Original 6" class="w-24 h-24 object-cover object-center rounded mb-2 border border-gray-200"/><br/>
+                            <span class="text-xs">Test 6: Make the human wear a blue NhatBinh outfit</span>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_be/06.png" alt="result_be 6" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">14.7 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_nano/06.jpg" alt="result_nano 6" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">32.6 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1.5/006.png" alt="result_gpt_1.5 6" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">32.5 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1/06.png" alt="result_gpt_1 6" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">42.8 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_qwen_edit_2509/06.webp" alt="result_qwen_edit_2509 6" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">91.6 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_flux/06.webp" alt="result_flux 6" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">19.4 s</small>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-3 py-3 text-center font-medium">007</td>
+                        <td class="px-3 py-3">
+                            <img src="asset/dataset/07.jpg" alt="Original 7" class="w-24 h-24 object-cover object-center rounded mb-2 border border-gray-200"/><br/>
+                            <span class="text-xs">Test 7: Make the human wear a red NhatBinh outfit that is blowing intensely in the wind to the right.</span>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_be/07.png" alt="result_be 7" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">14.8 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_nano/07.jpg" alt="result_nano 7" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">29.4 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1.5/007.png" alt="result_gpt_1.5 7" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">35.1 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1/07.png" alt="result_gpt_1 7" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">51.5 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_qwen_edit_2509/07.webp" alt="result_qwen_edit_2509 7" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">59.4 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_flux/07.webp" alt="result_flux 7" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">19.7 s</small>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-3 py-3 text-center font-medium">008</td>
+                        <td class="px-3 py-3">
+                            <img src="asset/dataset/05.jpg" alt="Original 8" class="w-24 h-24 object-cover object-center rounded mb-2 border border-gray-200"/><br/>
+                            <span class="text-xs">Test 8: Make the human wear a purple NhatBinh outfit top paired with modern blue denim jeans.</span>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_be/08.png" alt="result_be 8" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">14.3 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_nano/08.jpg" alt="result_nano 8" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">30.8 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1.5/008.png" alt="result_gpt_1.5 8" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">66.9 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1/08.png" alt="result_gpt_1 8" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">52.4 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_qwen_edit_2509/08.webp" alt="result_qwen_edit_2509 8" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">57.6 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_flux/08.webp" alt="result_flux 8" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">19.4 s</small>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-3 py-3 text-center font-medium">009</td>
+                        <td class="px-3 py-3">
+                            <img src="asset/dataset/08.jpg" alt="Original 9" class="w-24 h-24 object-cover object-center rounded mb-2 border border-gray-200"/><br/>
+                            <span class="text-xs">Test 9: Make the human wear a pink NhatBinh outfit with their hair loose and flowing, removing any headwear.</span>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_be/09.png" alt="result_be 9" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">14.4 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_nano/09.jpg" alt="result_nano 9" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">33.4 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1.5/009.png" alt="result_gpt_1.5 9" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">66.8 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1/09.png" alt="result_gpt_1 9" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">42.7 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_qwen_edit_2509/09.webp" alt="result_qwen_edit_2509 9" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">143.4 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_flux/09.webp" alt="result_flux 9" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">28.5 s</small>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-3 py-3 text-center font-medium">010</td>
+                        <td class="px-3 py-3">
+                            <img src="asset/dataset/09.jpg" alt="Original 10" class="w-24 h-24 object-cover object-center rounded mb-2 border border-gray-200"/><br/>
+                            <span class="text-xs">Test 10: Make the human wear a NhatBinh outfit featuring a complex gradient from deep purple to vibrant red.</span>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_be/10.png" alt="result_be 10" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">14.6 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_nano/10.jpg" alt="result_nano 10" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">33.8 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1.5/010.png" alt="result_gpt_1.5 10" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">38.5 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1/10.png" alt="result_gpt_1 10" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">39.1 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_qwen_edit_2509/10.webp" alt="result_qwen_edit_2509 10" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">144.3 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_flux/10.webp" alt="result_flux 10" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">24.3 s</small>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-3 py-3 text-center font-medium">011</td>
+                        <td class="px-3 py-3">
+                            <img src="asset/dataset/02.jpg" alt="Original 11" class="w-24 h-24 object-cover object-center rounded mb-2 border border-gray-200"/><br/>
+                            <span class="text-xs">Test 11: Make the human wear a purple Nhat Binh outfit, seen from a side-profile view to show the drape of the long sleeves.</span>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_be/11.png" alt="result_be 11" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">14.1 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_nano/11.jpg" alt="result_nano 11" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">30.8 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1.5/011.png" alt="result_gpt_1.5 11" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">34.3 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1/11.png" alt="result_gpt_1 11" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">38.9 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_qwen_edit_2509/11.webp" alt="result_qwen_edit_2509 11" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">226.4 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_flux/11.webp" alt="result_flux 11" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">24.1 s</small>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-3 py-3 text-center font-medium">012</td>
+                        <td class="px-3 py-3">
+                            <img src="asset/dataset/06.jpg" alt="Original 12" class="w-24 h-24 object-cover object-center rounded mb-2 border border-gray-200"/><br/>
+                            <span class="text-xs">Test 12: Make the human wear a red NhatBinh outfit, seen from behind.</span>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_be/12.png" alt="result_be 12" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">14.6 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_nano/12.jpg" alt="result_nano 12" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">35.9 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1.5/012.png" alt="result_gpt_1.5 12" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">37.8 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1/12.png" alt="result_gpt_1 12" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">35.8 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_qwen_edit_2509/12.webp" alt="result_qwen_edit_2509 12" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">109.1 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_flux/12.webp" alt="result_flux 12" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">23.8 s</small>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-3 py-3 text-center font-medium">013</td>
+                        <td class="px-3 py-3">
+                            <img src="asset/dataset/04.jpg" alt="Original 13" class="w-24 h-24 object-cover object-center rounded mb-2 border border-gray-200"/><br/>
+                            <span class="text-xs">Test 13: Make the human wear a NhatBinh outfit, styled as an oil painting with visible brushstrokes and a rich, dark canvas texture.</span>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_be/13.png" alt="result_be 13" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">13.9 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_nano/13.jpg" alt="result_nano 13" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">28.7 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1.5/013.png" alt="result_gpt_1.5 13" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">32.9 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1/13.png" alt="result_gpt_1 13" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">46.7 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_qwen_edit_2509/13.webp" alt="result_qwen_edit_2509 13" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">175.8 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_flux/13.webp" alt="result_flux 13" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">25.6 s</small>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-3 py-3 text-center font-medium">014</td>
+                        <td class="px-3 py-3">
+                            <img src="asset/dataset/08.jpg" alt="Original 14" class="w-24 h-24 object-cover object-center rounded mb-2 border border-gray-200"/><br/>
+                            <span class="text-xs">Test 14: Make the human wear a NhatBinh outfit, rendered in a modern 3D Disney style.</span>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_be/14.png" alt="result_be 14" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">14.4 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_nano/14.jpg" alt="result_nano 14" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">32.1 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1.5/014.png" alt="result_gpt_1.5 14" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">36.1 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1/14.png" alt="result_gpt_1 14" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">44.9 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_qwen_edit_2509/14.webp" alt="result_qwen_edit_2509 14" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">63.1 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_flux/14.webp" alt="result_flux 14" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">24.2 s</small>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-3 py-3 text-center font-medium">015</td>
+                        <td class="px-3 py-3">
+                            <img src="asset/dataset/07.jpg" alt="Original 15" class="w-24 h-24 object-cover object-center rounded mb-2 border border-gray-200"/><br/>
+                            <span class="text-xs">Test 15: Make the human wear a NhatBinh outfit while standing in a snowy winter forest with pine trees.</span>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_be/15.png" alt="result_be 15" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">14.2 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_nano/15.jpg" alt="result_nano 15" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">26.9 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1.5/015.png" alt="result_gpt_1.5 15" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">33.5 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1/15.png" alt="result_gpt_1 15" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">39.9 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_qwen_edit_2509/15.webp" alt="result_qwen_edit_2509 15" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">148.3 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_flux/15.webp" alt="result_flux 15" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">24.9 s</small>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-3 py-3 text-center font-medium">016</td>
+                        <td class="px-3 py-3">
+                            <img src="asset/dataset/02.jpg" alt="Original 16" class="w-24 h-24 object-cover object-center rounded mb-2 border border-gray-200"/><br/>
+                            <span class="text-xs">Test 16: Make the human wear a red NhatBinh outfit while standing in a modern, futuristic neon-lit city street at night.</span>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_be/16.png" alt="result_be 16" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">14.2 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_nano/16.jpg" alt="result_nano 16" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">27.1 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1.5/016.png" alt="result_gpt_1.5 16" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">35.0 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1/16.png" alt="result_gpt_1 16" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">41.1 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_qwen_edit_2509/16.webp" alt="result_qwen_edit_2509 16" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">59.3 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_flux/16.webp" alt="result_flux 16" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">25.7 s</small>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-3 py-3 text-center font-medium">017</td>
+                        <td class="px-3 py-3">
+                            <img src="asset/dataset/10.jpg" alt="Original 17" class="w-24 h-24 object-cover object-center rounded mb-2 border border-gray-200"/><br/>
+                            <span class="text-xs">Test 17: Extract the NhatBinh outfit worn by the human in the image.</span>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_be/17.png" alt="result_be 17" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">14.3 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_nano/17.jpg" alt="result_nano 17" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">27.7 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1.5/017.png" alt="result_gpt_1.5 17" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">32.9 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_gpt_1/17.png" alt="result_gpt_1 17" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">36.3 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_qwen_edit_2509/17.webp" alt="result_qwen_edit_2509 17" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">67.5 s</small>
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <img src="asset/result_flux/17.webp" alt="result_flux 17" class="w-24 h-24 object-cover object-center rounded mb-1 border border-gray-200 mx-auto"/><br/>
+                            <small class="text-gray-600">28.1 s</small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- EVALUATION TABLE -->
+    <div class="max-w-7xl mx-auto px-6 mb-20">
+        <h2 class="text-2xl font-bold font-serif text-gray-900 mb-6">Evaluation Table</h2>
+        <div class="overflow-x-auto shadow-sm rounded-lg border border-gray-200">
+            <table class="w-full text-xs text-left text-gray-700 font-serif">
+                <thead class="text-xs text-gray-900 uppercase bg-gray-50 border-b-2 border-gray-200">
+                    <tr>
+                        <th class="px-4 py-3 font-bold sticky left-0 bg-gray-50 z-10">Model</th>
+                        <th class="px-3 py-3 text-center">Add</th>
+                        <th class="px-3 py-3 text-center">Adjust</th>
+                        <th class="px-3 py-3 text-center">Extract</th>
+                        <th class="px-3 py-3 text-center">Replace</th>
+                        <th class="px-3 py-3 text-center">Remove</th>
+                        <th class="px-3 py-3 text-center">Background</th>
+                        <th class="px-3 py-3 text-center">Style</th>
+                        <th class="px-3 py-3 text-center">Hybrid</th>
+                        <th class="px-3 py-3 text-center">Action</th>
+                        <th class="px-3 py-3 text-center font-bold">Overall ↑</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 font-medium text-gray-900 sticky left-0 bg-white z-10">MagicBrush (Zhang et al., 2023)</td>
+                        <td class="px-3 py-3 text-center">2.84</td>
+                        <td class="px-3 py-3 text-center">1.58</td>
+                        <td class="px-3 py-3 text-center">1.51</td>
+                        <td class="px-3 py-3 text-center">1.97</td>
+                        <td class="px-3 py-3 text-center">1.58</td>
+                        <td class="px-3 py-3 text-center">1.75</td>
+                        <td class="px-3 py-3 text-center">2.38</td>
+                        <td class="px-3 py-3 text-center">1.62</td>
+                        <td class="px-3 py-3 text-center">1.22</td>
+                        <td class="px-3 py-3 text-center">1.83</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 font-medium text-gray-900 sticky left-0 bg-white z-10">Instruct-Pix2Pix (Brooks et al., 2023)</td>
+                        <td class="px-3 py-3 text-center">2.45</td>
+                        <td class="px-3 py-3 text-center">1.83</td>
+                        <td class="px-3 py-3 text-center">1.44</td>
+                        <td class="px-3 py-3 text-center">2.01</td>
+                        <td class="px-3 py-3 text-center">1.50</td>
+                        <td class="px-3 py-3 text-center">1.44</td>
+                        <td class="px-3 py-3 text-center">3.55</td>
+                        <td class="px-3 py-3 text-center">1.20</td>
+                        <td class="px-3 py-3 text-center">1.46</td>
+                        <td class="px-3 py-3 text-center">1.88</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 font-medium text-gray-900 sticky left-0 bg-white z-10">AnyEdit (Yu et al., 2025)</td>
+                        <td class="px-3 py-3 text-center">3.18</td>
+                        <td class="px-3 py-3 text-center">2.95</td>
+                        <td class="px-3 py-3 text-center">1.88</td>
+                        <td class="px-3 py-3 text-center">2.47</td>
+                        <td class="px-3 py-3 text-center">2.23</td>
+                        <td class="px-3 py-3 text-center">2.24</td>
+                        <td class="px-3 py-3 text-center">2.85</td>
+                        <td class="px-3 py-3 text-center">1.56</td>
+                        <td class="px-3 py-3 text-center">2.65</td>
+                        <td class="px-3 py-3 text-center">2.45</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 font-medium text-gray-900 sticky left-0 bg-white z-10">UltraEdit (Zhao et al., 2024)</td>
+                        <td class="px-3 py-3 text-center">3.44</td>
+                        <td class="px-3 py-3 text-center">2.81</td>
+                        <td class="px-3 py-3 text-center">2.13</td>
+                        <td class="px-3 py-3 text-center">2.96</td>
+                        <td class="px-3 py-3 text-center">1.45</td>
+                        <td class="px-3 py-3 text-center">2.83</td>
+                        <td class="px-3 py-3 text-center">3.76</td>
+                        <td class="px-3 py-3 text-center">1.91</td>
+                        <td class="px-3 py-3 text-center">2.98</td>
+                        <td class="px-3 py-3 text-center">2.70</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 font-medium text-gray-900 sticky left-0 bg-white z-10">OmniGen (Xiao et al., 2025)</td>
+                        <td class="px-3 py-3 text-center">3.47</td>
+                        <td class="px-3 py-3 text-center">3.04</td>
+                        <td class="px-3 py-3 text-center">1.71</td>
+                        <td class="px-3 py-3 text-center">2.94</td>
+                        <td class="px-3 py-3 text-center">2.43</td>
+                        <td class="px-3 py-3 text-center">3.21</td>
+                        <td class="px-3 py-3 text-center">4.19</td>
+                        <td class="px-3 py-3 text-center">2.24</td>
+                        <td class="px-3 py-3 text-center">3.38</td>
+                        <td class="px-3 py-3 text-center">2.96</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 font-medium text-gray-900 sticky left-0 bg-white z-10">ICEdit (Zhang et al., 2025)</td>
+                        <td class="px-3 py-3 text-center">3.58</td>
+                        <td class="px-3 py-3 text-center">3.39</td>
+                        <td class="px-3 py-3 text-center">1.73</td>
+                        <td class="px-3 py-3 text-center">3.15</td>
+                        <td class="px-3 py-3 text-center">2.93</td>
+                        <td class="px-3 py-3 text-center">3.08</td>
+                        <td class="px-3 py-3 text-center">3.84</td>
+                        <td class="px-3 py-3 text-center">2.04</td>
+                        <td class="px-3 py-3 text-center">3.68</td>
+                        <td class="px-3 py-3 text-center">3.05</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 font-medium text-gray-900 sticky left-0 bg-white z-10">Step1X-Edit (Liu et al., 2025b)</td>
+                        <td class="px-3 py-3 text-center">3.88</td>
+                        <td class="px-3 py-3 text-center">3.14</td>
+                        <td class="px-3 py-3 text-center">1.76</td>
+                        <td class="px-3 py-3 text-center">3.40</td>
+                        <td class="px-3 py-3 text-center">2.41</td>
+                        <td class="px-3 py-3 text-center">3.16</td>
+                        <td class="px-3 py-3 text-center">4.63</td>
+                        <td class="px-3 py-3 text-center">2.64</td>
+                        <td class="px-3 py-3 text-center">2.52</td>
+                        <td class="px-3 py-3 text-center">3.06</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 font-medium text-gray-900 sticky left-0 bg-white z-10">BAGEL (Deng et al., 2025)</td>
+                        <td class="px-3 py-3 text-center">3.56</td>
+                        <td class="px-3 py-3 text-center">3.31</td>
+                        <td class="px-3 py-3 text-center">1.70</td>
+                        <td class="px-3 py-3 text-center">3.30</td>
+                        <td class="px-3 py-3 text-center">2.62</td>
+                        <td class="px-3 py-3 text-center">3.24</td>
+                        <td class="px-3 py-3 text-center">4.49</td>
+                        <td class="px-3 py-3 text-center">2.38</td>
+                        <td class="px-3 py-3 text-center">4.17</td>
+                        <td class="px-3 py-3 text-center">3.20</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 font-medium text-gray-900 sticky left-0 bg-white z-10">UniWorld-V1 (Lin et al., 2025)</td>
+                        <td class="px-3 py-3 text-center">3.82</td>
+                        <td class="px-3 py-3 text-center">3.64</td>
+                        <td class="px-3 py-3 text-center">2.27</td>
+                        <td class="px-3 py-3 text-center">3.47</td>
+                        <td class="px-3 py-3 text-center">3.24</td>
+                        <td class="px-3 py-3 text-center">2.99</td>
+                        <td class="px-3 py-3 text-center">4.21</td>
+                        <td class="px-3 py-3 text-center">2.96</td>
+                        <td class="px-3 py-3 text-center">2.74</td>
+                        <td class="px-3 py-3 text-center">3.26</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 font-medium text-gray-900 sticky left-0 bg-white z-10">OmniGen2 (Wu et al., 2025b)</td>
+                        <td class="px-3 py-3 text-center">3.57</td>
+                        <td class="px-3 py-3 text-center">3.06</td>
+                        <td class="px-3 py-3 text-center">1.77</td>
+                        <td class="px-3 py-3 text-center">3.74</td>
+                        <td class="px-3 py-3 text-center">3.20</td>
+                        <td class="px-3 py-3 text-center">3.57</td>
+                        <td class="px-3 py-3 text-center">4.81</td>
+                        <td class="px-3 py-3 text-center">2.52</td>
+                        <td class="px-3 py-3 text-center">4.68</td>
+                        <td class="px-3 py-3 text-center">3.44</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 font-medium text-gray-900 sticky left-0 bg-white z-10">FLUX.1 Kontext [Pro] (Labs et al., 2025)</td>
+                        <td class="px-3 py-3 text-center">4.25</td>
+                        <td class="px-3 py-3 text-center">4.15</td>
+                        <td class="px-3 py-3 text-center">2.35</td>
+                        <td class="px-3 py-3 text-center">4.56</td>
+                        <td class="px-3 py-3 text-center">3.57</td>
+                        <td class="px-3 py-3 text-center">4.26</td>
+                        <td class="px-3 py-3 text-center">4.57</td>
+                        <td class="px-3 py-3 text-center">3.68</td>
+                        <td class="px-3 py-3 text-center">4.63</td>
+                        <td class="px-3 py-3 text-center">4.00</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 font-medium text-gray-900 sticky left-0 bg-white z-10">GPT Image 1 [High] (OpenAI, 2025)</td>
+                        <td class="px-3 py-3 text-center font-bold">4.61</td>
+                        <td class="px-3 py-3 text-center">4.33</td>
+                        <td class="px-3 py-3 text-center">2.90</td>
+                        <td class="px-3 py-3 text-center">4.35</td>
+                        <td class="px-3 py-3 text-center">3.66</td>
+                        <td class="px-3 py-3 text-center font-bold">4.57</td>
+                        <td class="px-3 py-3 text-center font-bold">4.93</td>
+                        <td class="px-3 py-3 text-center font-bold">3.96</td>
+                        <td class="px-3 py-3 text-center font-bold">4.89</td>
+                        <td class="px-3 py-3 text-center">4.20</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50 bg-yellow-50/30">
+                        <td class="px-4 py-3 font-medium text-gray-900 sticky left-0 bg-yellow-50/30 z-10 font-bold">Qwen-Image</td>
+                        <td class="px-3 py-3 text-center">4.38</td>
+                        <td class="px-3 py-3 text-center">4.16</td>
+                        <td class="px-3 py-3 text-center font-bold">3.43</td>
+                        <td class="px-3 py-3 text-center font-bold">4.66</td>
+                        <td class="px-3 py-3 text-center font-bold">4.14</td>
+                        <td class="px-3 py-3 text-center">4.38</td>
+                        <td class="px-3 py-3 text-center">4.81</td>
+                        <td class="px-3 py-3 text-center">3.82</td>
+                        <td class="px-3 py-3 text-center">4.69</td>
+                        <td class="px-3 py-3 text-center font-bold">4.27</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 font-medium text-gray-900 sticky left-0 bg-white z-10">Qwen-Img (Quant+4S+NB)</td>
+                        <td class="px-3 py-3 text-center">4.37</td>
+                        <td class="px-3 py-3 text-center font-bold">4.51</td>
+                        <td class="px-3 py-3 text-center">2.58</td>
+                        <td class="px-3 py-3 text-center">4.64</td>
+                        <td class="px-3 py-3 text-center">4.12</td>
+                        <td class="px-3 py-3 text-center">4.28</td>
+                        <td class="px-3 py-3 text-center">4.72</td>
+                        <td class="px-3 py-3 text-center">3.45</td>
+                        <td class="px-3 py-3 text-center">4.76</td>
+                        <td class="px-3 py-3 text-center">4.16</td>
                     </tr>
                 </tbody>
             </table>

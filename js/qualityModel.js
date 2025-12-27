@@ -63,38 +63,16 @@ async function generateQuality() {
     container.innerHTML = '';
     timeBadge.classList.add('hidden');
     
-    // Show progress bar
-    const progressBar = createQualityProgressBar('quality-progress-bar', 'purple-600', 50);
-    container.appendChild(progressBar);
-    const progressBarFill = document.getElementById('quality-progress-bar');
-    const stepsText = progressBar.querySelector('.font-mono');
+    // Show loading circle
+    const loadingCircle = createQualityLoadingCircle('purple-600');
+    container.appendChild(loadingCircle);
     
     try {
-        // Convert image to base64 if exists
-        let imageBase64 = null;
-        if (qualityImageFile) {
-            imageBase64 = await fileToBase64(qualityImageFile);
-        }
+        // CALL REAL API - Pass File object directly (backend expects FormData with File)
+        const result = await callGenerateAPI('quality', prompt, qualityImageFile);
         
-        // Simulate progress while waiting for API (fallback)
-        let progress = 0;
-        const progressInterval = setInterval(() => {
-            progress += 0.5;
-            if (progress < 90) {
-                progressBarFill.style.width = progress + '%';
-                stepsText.textContent = `Steps: ${Math.floor(progress / 2)}/50`;
-            }
-        }, 100);
-        
-        // CALL REAL API
-        const result = await callGenerateAPI('quality', prompt, imageBase64);
-        
-        // Stop progress simulation
-        clearInterval(progressInterval);
-        
-        // Display result from API
-        progressBarFill.style.width = '100%';
-        stepsText.textContent = 'Steps: 50/50';
+        // Remove loading circle
+        container.innerHTML = '';
         
         // Display result image
         showQualityResult(container, result.imageUrl);
@@ -108,7 +86,6 @@ async function generateQuality() {
         
     } catch (error) {
         // Handle error
-        clearInterval(progressInterval);
         container.innerHTML = `
             <div class="text-center p-4 text-red-600">
                 <p class="font-bold">Error generating image!</p>
@@ -122,22 +99,22 @@ async function generateQuality() {
 }
 
 /**
- * Create progress bar for Quality Model
- * @param {string} id - Progress bar ID
- * @param {string} color - Progress bar color
- * @param {number} totalSteps - Total number of steps
- * @returns {HTMLElement} - Progress bar element
+ * Create loading circle/spinner for Quality Model
+ * @param {string} color - Spinner color (purple-600...)
+ * @returns {HTMLElement} - Loading circle element
  */
-function createQualityProgressBar(id, color, totalSteps) {
-    const progressBar = document.createElement('div');
-    progressBar.className = 'w-3/4';
-    progressBar.innerHTML = `
-        <div class="h-1 bg-gray-300 rounded-full overflow-hidden">
-            <div id="${id}" class="h-full bg-${color} transition-all duration-75" style="width: 0%"></div>
-        </div>
-        <div class="text-center text-xs text-gray-500 mt-2 font-mono">Steps: 0/${totalSteps}</div>
+function createQualityLoadingCircle(color) {
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className = 'flex flex-col items-center justify-center p-8';
+    // Use purple-600 for quality model
+    loadingDiv.innerHTML = `
+        <svg class="animate-spin h-12 w-12 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <p class="mt-4 text-sm text-gray-600">Generating image...</p>
     `;
-    return progressBar;
+    return loadingDiv;
 }
 
 /**

@@ -11,16 +11,12 @@ let currentSlide = 0;
 function updateCarousel() {
     const data = CAROUSEL_DATA[currentSlide];
     
-    // Update images
-    document.getElementById('carousel-fast-img').src = data.fast;
-    document.getElementById('carousel-slow-img').src = data.slow;
+    // Update images: origin -> edited
+    document.getElementById('carousel-origin-img').src = data.origin;
+    document.getElementById('carousel-edited-img').src = data.edited;
     
     // Update prompt
     document.getElementById('carousel-prompt').textContent = `"${data.prompt}"`;
-    
-    // Update time
-    document.getElementById('carousel-fast-time').textContent = data.time_fast;
-    document.getElementById('carousel-slow-time').textContent = data.time_slow;
     
     // Update dots (slide indicators)
     updateCarouselDots();
@@ -30,16 +26,25 @@ function updateCarousel() {
  * Update slide indicator dots state
  */
 function updateCarouselDots() {
-    const dots = document.querySelectorAll('[onclick^="goToSlide"]');
-    dots.forEach((dot, idx) => {
-        if (idx === currentSlide) {
+    const container = document.getElementById('carousel-dots-container');
+    if (!container) return;
+    
+    // Clear existing dots
+    container.innerHTML = '';
+    
+    // Create dots for each slide
+    for (let i = 0; i < CAROUSEL_DATA.length; i++) {
+        const dot = document.createElement('button');
+        dot.onclick = () => goToSlide(i);
+        if (i === currentSlide) {
             // Active slide
             dot.className = 'w-6 h-2 rounded-full bg-gray-800 transition-all';
         } else {
             // Inactive slide
             dot.className = 'w-2 h-2 rounded-full bg-gray-300 transition-all';
         }
-    });
+        container.appendChild(dot);
+    }
 }
 
 /**
